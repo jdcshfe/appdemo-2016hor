@@ -3,7 +3,17 @@
 module.exports = function(grunt) {
   'use strict';
 
+  // load all grunt tasks matching the `grunt-*` pattern
+  require('load-grunt-tasks')(grunt);
+
   grunt.initConfig({
+    //watch
+    watch: {
+      sass: {
+        files: ['www/css/*.scss'],
+        tasks: ['sass']
+      }
+    },
     browserSync: {
       dev: {
         bsFiles: {
@@ -13,17 +23,39 @@ module.exports = function(grunt) {
           ]
         },
         options: {
-          startPath: "www/index.html",
           server: {
             baseDir: "./"
-          }
+          },
+          startPath: "www/index.html",
+          watchTask: true // < VERY important
         }
+      }
+    },
+
+    //sass
+    sass: {
+      dist: {
+        options: {
+          style: 'compact',
+          noCache: true,
+          loadPath: [
+              'bower_components/bourbon/app/assets/stylesheets/'
+            ]
+        },
+        files: [{
+          expand: true,
+          cwd: 'www/css',
+          src: ['{,*/}*.scss'],
+          dest: 'www/css',
+          ext: '.css'
+        }]
       }
     }
   });
 
-  //load
-  grunt.loadNpmTasks('grunt-browser-sync');
   //task
-  grunt.registerTask('default', ['browserSync']);
+  grunt.registerTask('default', [
+    'browserSync',
+    'watch'
+    ]);
 };

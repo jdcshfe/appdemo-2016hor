@@ -1,0 +1,9 @@
+{
+  "name": "package",
+  "version": "0.0.0",
+  "dependencies": {
+    "zepto-full": "~1.1.2",
+    "bourbon": "~4.1.1",
+    "hammer.js": "~2.0.4"
+  }
+}
