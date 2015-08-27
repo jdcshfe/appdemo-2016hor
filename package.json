@@ -1,0 +1,23 @@
+{
+  "name": "jdcart",
+  "version": "0.0.1",
+  "description": "jcdart 规范平台",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wisteriaflash/jdcart.git"
+  },
+  "author": "wisteria",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wisteriaflash/jdcart/issues"
+  },
+  "homepage": "https://github.com/wisteriaflash/jdcart",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-browser-sync": "^1.9.1"
+  }
+}
