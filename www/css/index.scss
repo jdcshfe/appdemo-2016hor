@@ -168,8 +168,7 @@ ul, li{
   text-align: right;
   padding-right: 7px;
   width: 46px;
-  -webkit-transition: all 0.8s;
-  transition: all 0.8s;
+  @include transition(all 0.8s);
   z-index: 2;
 }
 .header .search i{
@@ -193,7 +192,6 @@ ul, li{
     width: 72%;
     height: 20px;
     line-height: 20px;
-    /*background-color: rgba(255,255,0,0.4);*/
     margin-left: -1px;
     z-index: 5;
 }
@@ -252,146 +250,99 @@ ul, li{
     display: block;
     width: 53px;
 }
+//vars
+$tag-moving-time: 0.6s;
 /*small*/
 .header .tag li.movingsmall{
-    z-index: 10;
-    -webkit-animation: movingsmall 0.6s ease-out 0s 1 forwards;
+  z-index: 10;
+  @include animation(movingsmall $tag-moving-time ease-out forwards);
 }
 .header .tag li.movingsmall .bg{
-    -webkit-animation: movingsmall-bg 0.6s ease-out 0s 1 forwards;
+  @include animation(movingsmall-bg $tag-moving-time ease-out forwards);
 }
 .header .tag li.movingsmall .txt{
-    -webkit-animation: movingsmall-txt 0.6s ease-out 0s 1 forwards;
+  @include animation(movingsmall-txt $tag-moving-time ease-out forwards);
 }
 .header .tag li.movingsmall.moveleft .bg{
-    -webkit-animation: movingsmall-bg-left 0.6s ease-out 0s 1 forwards;
+  @include animation(movingsmall-bg-left $tag-moving-time ease-out forwards);
 }
 /*big*/
 .header .tag li.movingbig{
-    -webkit-animation: movingbig 0.6s ease-out 0s 1 forwards;
+  @include animation(movingbig $tag-moving-time ease-out forwards);
 }
 .header .tag li.movingbig:nth-child(1) .bg{
-    -webkit-animation: movingbig-bg1 0.6s ease-out 0s 1 forwards;
+  @include animation(movingbig-bg1 $tag-moving-time ease-out forwards);
 }
 .header .tag li.movingbig:nth-child(2) .bg{
-    -webkit-animation: movingbig-bg2 0.6s ease-out 0s 1 forwards;
+  @include animation(movingbig-bg2 $tag-moving-time ease-out forwards);
 }
 .header .tag li.movingbig:nth-child(3) .bg{
-    -webkit-animation: movingbig-bg3 0.6s ease-out 0s 1 forwards;
+  @include animation(movingbig-bg3 $tag-moving-time ease-out forwards);
 }
 .header .tag li.movingbig:nth-child(4) .bg{
-    -webkit-animation: movingbig-bg4 0.6s ease-out 0s 1 forwards;
+  @include animation(movingbig-bg4 $tag-moving-time ease-out forwards);
 }
 .header .tag li.movingbig:nth-child(5) .bg{
-    -webkit-animation: movingbig-bg5 0.6s ease-out 0s 1 forwards;
+  @include animation(movingbig-bg5 $tag-moving-time ease-out forwards);
 }
 .header .tag li.movingbig .txt{
-    -webkit-animation: movingbig-txt 0.6s ease-out 0s 1 forwards;
+  @include animation(movingbig-txt $tag-moving-time ease-out forwards);
 }
 /*moving*/
-@-webkit-keyframes movingsmall {
+$moving-graycolor: #DBDBDB;
+@include keyframes(movingsmall) {
   0% { width: 53px; }
   60% { width: 53px; }
   100% { width: 10px;}
 }
-@keyframes movingsmall {
-  0% { width: 53px; }
-  60% { width: 53px; }
-  100% { width: 10px;}
-}
-@-webkit-keyframes movingsmall-bg {
+@include keyframes(movingsmall-bg) {
   0% { width: 53px; }
   /*30% { width: 70px; }*/
   50% { width: 53px; }
-  100% { width: 10px; height: 10px; top: 5px; background-color: #DBDBDB}
+  100% { width: 10px; height: 10px; top: 5px; background-color: $moving-graycolor;}
 }
-@keyframes movingsmall-bg {
-  0% { width: 53px; }
-  /*30% { width: 70px;}*/
-  50% { width: 53px;}
-  100% { width: 10px; height: 10px; top: 5px; background-color: #DBDBDB}
-}
-@-webkit-keyframes movingsmall-bg-left{
+@include keyframes(movingsmall-bg-left) {
   0% { width: 53px; }
   /*30% { width: 70px; left: -15px}*/
   60% { width: 53px; }
   100% { width: 10px; height: 10px; top: 5px; background-color: #DBDBDB}   
 }
-@keyframes movingsmall-bg-left{
-  0% { width: 53px; left: 0;}
-  /*30% { width: 70px; left: -15px}*/
-  60% { width: 53px;}
-  100% { width: 10px; height: 10px; top: 5px; background-color: #DBDBDB}   
-}
-@-webkit-keyframes movingsmall-txt{
-  0% { opacity: 1; -webkit-transform: scale(1); transform: scale(1);}
-  100% { opacity: 0; -webkit-transform: scale(0); transform: scale(0);}
-}
-@keyframes movingsmall-txt{
-  0% { opacity: 1; -webkit-transform: scale(1); transform: scale(1);}
-  100% { opacity: 0; -webkit-transform: scale(0); transform: scale(0);}
+@include keyframes(movingsmall-txt) {
+  0% { 
+    opacity: 1; 
+    @include transform(scale(1));
+  }
+  100% { 
+    opacity: 0;
+    @include transform(scale(0));
+  }
 }
 
-
-@keyframes movingbig {
+@include keyframes(movingbig) {
   0% { width: 10px; }
   60% { width: 10px; }
   100% { width: 53px;}
 }
-@-webkit-keyframes movingbig {
-  0% { width: 10px; }
-  60% { width: 10px; }
-  100% { width: 53px;}
-}
-@keyframes movingbig-bg1 {
+
+@mixin movingbigColor($color) {
   0% { width: 10px;}
   60% { width: 10px; }
-  100% { width: 53px; height: 20px; top: 0px; background-color: #EB332C; border-radius: 10px;}
+  100% { width: 53px; height: 20px; top: 0px; background-color: $color; border-radius: 10px;}
 }
-@-webkit-keyframes movingbig-bg1 {
-  0% { width: 10px;}
-  60% { width: 10px; }
-  100% { width: 53px; height: 20px; top: 0px; background-color: #EB332C; border-radius: 10px;}
+@include keyframes(movingbig-bg1) {
+  @include movingbigColor(#EB332C);
 }
-@keyframes movingbig-bg2 {
-  0% { width: 10px;}
-  60% { width: 10px; }
-  100% { width: 53px; height: 20px; top: 0px; background-color: #FEAF0B; border-radius: 10px;}
+@include keyframes(movingbig-bg2) {
+  @include movingbigColor(#FEAF0B);
 }
-@-webkit-keyframes movingbig-bg2 {
-  0% { width: 10px;}
-  60% { width: 10px; }
-  100% { width: 53px; height: 20px; top: 0px; background-color: #FEAF0B; border-radius: 10px;}
+@include keyframes(movingbig-bg3) {
+  @include movingbigColor(#2A2A2A);
 }
-@keyframes movingbig-bg3 {
-  0% { width: 10px;}
-  60% { width: 10px; }
-  100% { width: 53px; height: 20px; top: 0px; background-color: #2A2A2A; border-radius: 10px;}
+@include keyframes(movingbig-bg4) {
+  @include movingbigColor(#F92922);
 }
-@-webkit-keyframes movingbig-bg3 {
-  0% { width: 10px;}
-  60% { width: 10px; }
-  100% { width: 53px; height: 20px; top: 0px; background-color: #2A2A2A; border-radius: 10px;}
-}
-@keyframes movingbig-bg4 {
-  0% { width: 10px;}
-  60% { width: 10px; }
-  100% { width: 53px; height: 20px; top: 0px; background-color: #F92922; border-radius: 10px;}
-}
-@-webkit-keyframes movingbig-bg4 {
-  0% { width: 10px;}
-  60% { width: 10px; }
-  100% { width: 53px; height: 20px; top: 0px; background-color: #F92922; border-radius: 10px;}
-}
-@keyframes movingbig-bg5 {
-  0% { width: 10px;}
-  60% { width: 10px; }
-  100% { width: 53px; height: 20px; top: 0px; background-color: #8740FC; border-radius: 10px;}
-}
-@-webkit-keyframes movingbig-bg5 {
-  0% { width: 10px;}
-  60% { width: 10px; }
-  100% { width: 53px; height: 20px; top: 0px; background-color: #8740FC; border-radius: 10px;}
+@include keyframes(movingbig-bg5) {
+  @include movingbigColor(#8740FC);
 }
 @keyframes movingbig-txt{
   0% { opacity: 0; -webkit-transform: scale(0); transform: scale(0);}
@@ -640,8 +591,8 @@ ul, li{
     position: relative;
 }
 .page-con.init-moving{
-  -webkit-animation: init-moving 0.4s ease-in 0s forwards;
-  animation: init-moving 0.4s ease-in 0s forwards;
+  -webkit-animation: init-moving 1s ease-in 0s forwards;
+  animation: init-moving 1s ease-in 0s forwards;
 }
 .page{
     position: absolute;
@@ -677,115 +628,133 @@ ul, li{
 .page.p5 img{
     margin-bottom: 5px;
 }
-.page .part{
-    -webkit-transform: translateX(5%);
-    transform: translateX(5%);
+
+// part-vars
+$part1: 5%;
+$part2: 6%;
+$part3: 7%;
+$part4: 8%;
+$part5: 9%;
+$part-left: -3%;
+$part-right: 2%;
+$part-time: 1s;
+
+.page .part1{
+  @include transform(translate3d($part1,0,0));
 }
 .page .part2{
-    -webkit-transform: translateX(7%);
-    transform: translateX(7%);
+  @include transform(translate3d($part2,0,0));
 }
 .page .part3{
-    -webkit-transform: translateX(9%);
-    transform: translateX(9%);
+  @include transform(translate3d($part3,0,0));
 }
 .page .part4{
-    -webkit-transform: translateX(11%);
-    transform: translateX(11%);
+  @include transform(translate3d($part4,0,0));
 }
 .page .part5{
-    -webkit-transform: translateX(13%);
-    transform: translateX(13%);
+  @include transform(translate3d($part5,0,0));
 }
 .page.moved .part{
-    -webkit-transform: translateX(0%);
-    transform: translateX(0%);
+  @include transform(translate3d(0px,0,0));
 }
 /*moving*/
-@-webkit-keyframes init-moving {
-  0% { -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); }
-  30% { -webkit-transform: translate3d(20%,0,0); transform: translate3d(20%,0,0); }
-  100% { -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); }
+@include keyframes(init-moving) {
+  0% {
+    @include transform(translate3d(0,0,0));
+  }
+  30% {
+    @include transform(translate3d(20%,0,0));
+  }
+  100% {
+    @include transform(translate3d(0,0,0));
+  }
 }
-@-webkit-keyframes moving1 {
-  0% { -webkit-transform: translate3d(5%,0,0); transform: translate3d(5%,0,0); }
-  40% { -webkit-transform: translate3d(-3%,0,0); transform: translate3d(-3%,0,0); }
-  75% { -webkit-transform: translate3d(2%,0,0); transform: translate3d(2%,0,0); }
-  100% { -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); }
+
+@include keyframes(moving1) {
+  0% {
+    @include transform(translate3d($part1,0,0));
+  }
+  40% {
+    @include transform(translate3d($part-left,0,0));
+  }
+  75% {
+    @include transform(translate3d($part-right,0,0));
+  }
+  100% {
+    @include transform(translate3d(0,0,0));
+  }
 }
-@keyframes moving1 {
-  0% { -webkit-transform: translate3d(5%,0,0); transform: translate3d(5%,0,0); }
-  40% { -webkit-transform: translate3d(-3%,0,0); transform: translate3d(-3%,0,0); }
-  75% { -webkit-transform: translate3d(2%,0,0); transform: translate3d(2%,0,0); }
-  100% { -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); }
+@include keyframes(moving2) {
+  0% {
+    @include transform(translate3d($part2,0,0));
+  }
+  40% {
+    @include transform(translate3d($part-left,0,0));
+  }
+  75% {
+    @include transform(translate3d($part-right,0,0));
+  }
+  100% {
+    @include transform(translate3d(0,0,0));
+  }
 }
-@-webkit-keyframes moving2 {
-  0% { -webkit-transform: translate3d(7%,0,0); transform: translate3d(7%,0,0); }
-  40% { -webkit-transform: translate3d(-3%,0,0); transform: translate3d(-3%,0,0); }
-  75% { -webkit-transform: translate3d(2%,0,0); transform: translate3d(2%,0,0); }
-  100% { -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); }
+@include keyframes(moving3) {
+  0% {
+    @include transform(translate3d($part3,0,0));
+  }
+  40% {
+    @include transform(translate3d($part-left,0,0));
+  }
+  75% {
+    @include transform(translate3d($part-right,0,0));
+  }
+  100% {
+    @include transform(translate3d(0,0,0));
+  }
 }
-@keyframes moving2 {
-  0% { -webkit-transform: translate3d(7%,0,0); transform: translate3d(7%,0,0); }
-  40% { -webkit-transform: translate3d(-3%,0,0); transform: translate3d(-3%,0,0); }
-  75% { -webkit-transform: translate3d(2%,0,0); transform: translate3d(2%,0,0); }
-  100% { -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); }
+@include keyframes(moving4) {
+  0% {
+    @include transform(translate3d($part4,0,0));
+  }
+  40% {
+    @include transform(translate3d($part-left,0,0));
+  }
+  75% {
+    @include transform(translate3d($part-right,0,0));
+  }
+  100% {
+    @include transform(translate3d(0,0,0));
+  }
 }
-@-webkit-keyframes moving3 {
-  0% { -webkit-transform: translate3d(9%,0,0); transform: translate3d(9%,0,0); }
-  40% { -webkit-transform: translate3d(-3%,0,0); transform: translate3d(-3%,0,0); }
-  75% { -webkit-transform: translate3d(2%,0,0); transform: translate3d(2%,0,0); }
-  100% { -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); }
+@include keyframes(moving5) {
+  0% {
+    @include transform(translate3d($part5,0,0));
+  }
+  40% {
+    @include transform(translate3d($part-left,0,0));
+  }
+  75% {
+    @include transform(translate3d($part-right,0,0));
+  }
+  100% {
+    @include transform(translate3d(0,0,0));
+  }
 }
-@keyframes moving3 {
-  0% { -webkit-transform: translate3d(9%,0,0); transform: translate3d(9%,0,0); }
-  40% { -webkit-transform: translate3d(-3%,0,0); transform: translate3d(-3%,0,0); }
-  75% { -webkit-transform: translate3d(2%,0,0); transform: translate3d(2%,0,0); }
-  100% { -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); }
-}
-@-webkit-keyframes moving4 {
-  0% { -webkit-transform: translate3d(11%,0,0); transform: translate3d(11%,0,0); }
-  40% { -webkit-transform: translate3d(-3%,0,0); transform: translate3d(-3%,0,0); }
-  75% { -webkit-transform: translate3d(2%,0,0); transform: translate3d(2%,0,0); }
-  100% { -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); }
-}
-@keyframes moving4 {
-  0% { -webkit-transform: translate3d(11%,0,0); transform: translate3d(11%,0,0); }
-  40% { -webkit-transform: translate3d(-3%,0,0); transform: translate3d(-3%,0,0); }
-  75% { -webkit-transform: translate3d(2%,0,0); transform: translate3d(2%,0,0); }
-  100% { -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); }
-}
-@-webkit-keyframes moving5 {
-  0% { -webkit-transform: translate3d(13%,0,0); transform: translate3d(13%,0,0); }
-  40% { -webkit-transform: translate3d(-3%,0,0); transform: translate3d(-3%,0,0); }
-  75% { -webkit-transform: translate3d(2%,0,0); transform: translate3d(2%,0,0); }
-  100% { -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); }
-}
-@keyframes moving5 {
-  0% { -webkit-transform: translate3d(13%,0,0); transform: translate3d(13%,0,0); }
-  40% { -webkit-transform: translate3d(-3%,0,0); transform: translate3d(-3%,0,0); }
-  75% { -webkit-transform: translate3d(2%,0,0); transform: translate3d(2%,0,0); }
-  100% { -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); }
-}
+
 .page.moving .part1{
-    -webkit-animation: moving1 0.6s ease-out 0s 1 forwards;
-    animation: moving1 1.2s ease-out 0s 1 forwards;
+  @include animation(moving1 $part-time ease-out 0s forwards);
 }
 .page.moving .part2{
-    -webkit-animation: moving2 0.6s ease-out 0.1s forwards;
-    animation: moving2 1.2s ease-out 0.2s forwards;
+  @include animation(moving2 $part-time ease-out 0.1s forwards);
 }
 .page.moving .part3{
-    -webkit-animation: moving3 0.6s ease-out 0.2s forwards;
-    animation: moving3 1.2s ease-out 0.4s forwards;
+  @include animation(moving3 $part-time ease-out 0.2s forwards);
 }
 .page.moving .part4{
-    -webkit-animation: moving4 0.6s ease-out 0.3s forwards;
-    animation: moving4 1.2s ease-out 0.6s forwards;
+  @include animation(moving4 $part-time ease-out 0.3s forwards);
 }
 .page.moving .part5{
-    -webkit-animation: moving5 0.6s ease-out 0.4s forwards;
-    animation: moving5 1.2s ease-out 0.8s forwards;
+  @include animation(moving5 $part-time ease-out 0.4s forwards);
 }
 
 /*secskill*/

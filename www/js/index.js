@@ -413,8 +413,11 @@ $(function(){
             },400);
             setTimeout(function(){
                 appDom.seckillPercent();
-                $('#J_main .page-con').removeClass('init-moving');
+                // $('#J_main .page-con').removeClass('init-moving');
             },1000);
+            setTimeout(function(){
+                $('#J_main .page-con').removeClass('init-moving');
+            },1500);
         },
         seckillPlay: function(){
             var me = this;

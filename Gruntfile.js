@@ -36,7 +36,7 @@ module.exports = function(grunt) {
     sass: {
       dist: {
         options: {
-          style: 'compact',
+          style: 'compressed',
           noCache: true,
           loadPath: [
               'bower_components/bourbon/app/assets/stylesheets/'
