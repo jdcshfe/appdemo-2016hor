@@ -174,7 +174,7 @@ $(function(){
         pullDownHandler: function(delta){
             var me = this;
             var maxH = 140;
-            //pull-down
+            //pull-down 
             var posY = delta.y > maxH ? maxH : delta.y;
             posY = posY<0 ? 0 : posY;
             $('#J_wrapper').css({
