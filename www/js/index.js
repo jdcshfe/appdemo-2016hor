@@ -100,7 +100,7 @@ $(function(){
                     y: touches.pageY - me.touchStart.y
                 };
                 //pull-down
-                if(me.touchDelta.y>Math.abs(me.touchDelta.x)){
+                if(Math.abs(me.touchDelta.y)>Math.abs(me.touchDelta.x)){
                     var target = $(e.target);
                     //seckill
                     var seckill = target.parents('#J_seckill').length>0;
@@ -165,7 +165,6 @@ $(function(){
                 me.searchBelowIndex = me.pageIndex;
                 me.pullOK = true;
                 me.pullBackHandler();
-                // me.searchPageMove(-1);
             });
             $('#J_main .search-page .cancel').on('tap', function(e){
                 me.touchDelta = {x: 20};
@@ -390,17 +389,17 @@ $(function(){
         initSeckill: function(){
             var me = this;
             var seckillNode = $('#J_seckill');
-            var num = seckillNode.find('.items img').length;
+            var num = seckillNode.find('.itepullms img').length;
             var offset = 20;
             var wholeHeight = (1113/601)*(me.winW-8)/2;
             wholeHeight = Math.ceil(wholeHeight);
             var hdHeight = (96/601)*(me.winW-8)/2;
             hdHeight = parseInt(hdHeight);
-            seckillNode.css({
+            /*seckillNode.css({
                 height: wholeHeight
             }).find('.bd').css({
                 height: wholeHeight - hdHeight
-            });
+            });*/
             //percent
             me.seckillOffset = {
                 item: (wholeHeight-hdHeight)*0.25,

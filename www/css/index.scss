@@ -760,10 +760,16 @@ $part-time: 1s;
 /*secskill*/
 .page .part-half{
     width: 50%;
-    float: left;
 }
-.seckill{
-    position: relative;
+.part3{
+  position: relative;
+}
+.page .seckill{
+    float: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
     overflow: hidden;
 }
 .seckill .hd{
