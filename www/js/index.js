@@ -63,8 +63,11 @@ $(function(){
         isScrolling: false,
         isPullDown: false,
         pullOK: false,
+        prePullDelta: null,
+        prePullDir: null,
         seckillOffset: null,
         searchBelowIndex: 0,
+        movingbgWidth: 83,
         init: function(){
             var me = this;
             //
@@ -184,6 +187,10 @@ $(function(){
                 $('#J_tag li').eq(me.pageIndex).addClass('cur');
                 // $('#J_main .p'+(me.prePageIndex+1)).addClass('moved');
             });
+            //scan
+            $('.page-scan').on('tap', function(e){
+                $(this).removeClass('moving');
+            });
         },
         pullDownHandler: function(delta){
             var me = this;
@@ -210,22 +217,66 @@ $(function(){
             if(posY >= maxH){
                 me.pullOK = true;
                 var perOffset = 15;
-                var perW = parseInt(me.winW/4)-perOffset;
-                
-                var index = 1;
+                var perW = parseInt(me.winW/3)-perOffset;
                 var preIndex = $('#J_topBar .cur').index()-1;
+                var index = preIndex;
                 var bgOffset = 0;
+                var bgDir = delta.x<0 ? 'right' : 'left';
+                var bgMaxWidth = 120;
+                var movingbgWidth = me.movingbgWidth;
+                var limitOffset = 123;
+                var nodePos = $('#J_topBar span').eq(preIndex).position().left
+                var pos = delta.x + me.touchStart.x - nodePos;
+                if(me.prePullDelta && me.prePullDelta.x<delta.x){
+                    bgDir = 'left';
+                }else{
+                    bgDir = 'right';
+                }
+                var tmp = 0;
+                if(me.prePullDelta){
+                    tmp = Math.abs(me.prePullDelta.x - delta.x);
+                    tmp = tmp/2;
+                    movingbgWidth += tmp;
+                }
+                //check max
+                movingbgWidth = movingbgWidth>bgMaxWidth ? bgMaxWidth : movingbgWidth;
                 if(Math.abs(delta.x)>=perW){
                     index = delta.x<0 ? 0 : 2;
-                    bgOffset = delta.x<0 ? -103 : 103;
-                }else if(Math.abs(delta.x)<=perOffset*4){
+                    bgOffset = delta.x<0 ? -limitOffset : limitOffset;
+                    mmovingbgWidth = 83;
+                }else if(Math.abs(delta.x)<=perOffset){
                     index = 1;
+                    movingbgWidth = 83;
+                }else{
+                    if(index == 0){
+                        bgOffset = -limitOffset;   
+                    }
+                    if(index == 2){
+                        bgOffset = limitOffset;
+                    }
                 }
+                //check reset
+                if(bgDir!= me.prePullDir || preIndex != index){
+                    movingbgWidth = 83;
+                }
+                if((bgDir == 'right' && index == 0) || (bgDir == 'left' && index == 2)){
+                    movingbgWidth = 83;
+                }
+                me.movingbgWidth = movingbgWidth;
+                var movingbgNode = $('#J_topBar .moving-bg em');
+                movingbgNode.attr('style','');
+                movingbgNode.css(bgDir,'0px');
+                movingbgNode.css({
+                    width: movingbgWidth
+                })
                 $('#J_topBar .moving-bg').css({
                     '-webkit-transform': 'translateX('+bgOffset+'px)'
                 });
                 $('#J_topBar span').removeClass('cur');
                 $('#J_topBar span').eq(index).addClass('cur');
+                //data
+                me.prePullDelta = delta;
+                me.prePullDir = bgDir;
             }
         },
         pullBackHandler: function(){
@@ -261,6 +312,8 @@ $(function(){
                     //     $('#J_main .page-copy').css('display','none');
                     //     $('#J_main .page-copy').removeClass('hide');
                     // },1600);
+                }else if(index == 0){
+                    $('.page-scan').addClass('moving');
                 }
             }
             me.pullOK = false;

@@ -555,37 +555,29 @@ $moving-graycolor: #DBDBDB;
     z-index: 10;
     /*overflow-x: hidden;*/
 }
-.page-copy{
-  position: absolute;
-  left: 0;
+.page-scan{
+  position: fixed;
+  left: 100%;
+  width: 100%;
   top: 0;
-  margin-top: 15%;
-  -webkit-transform: translateX(-100%);
-  transform: translateX(-100%);
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
+  @include transition(all 0.5s);
   z-index: 30;
   opacity: 1;
 }
-.page-copy:before{
+.page-scan:after{
   content: '';
   position: absolute;
   left: 0;
-  top: 0;
-  right: 0;
-  height: 5px;
-  background-color: #FFF;
-  margin-top: -3px;
+  top: 10px;
+  // background-color: red;
+  width: 60px;
+  height: 60px;
+  opacity: 0.5;
 }
-.page-copy.show{
-  -webkit-transform: translateX(0px);
-  transform: translateX(0px);
+.page-scan.moving{
+  @include transform(translateX(-100%));
 }
-.page-copy.hide{
-  -webkit-transform: translateX(0px);
-  transform: translateX(0px);
-  opacity: 0;
-}
+
 .page-con{
     -webkit-transition: all 0.6s;
     transition: all 0.6s;
@@ -608,6 +600,10 @@ $moving-graycolor: #DBDBDB;
     overflow: hidden;
     left: 100%;
     @include transition(transform 0.6s ease-in-out);
+}
+.page.p1{
+  padding-bottom: 5px;
+  background-color: #F6F4F6;
 }
 .page.moved, .page.moving{
   @include transform(translate3d(-100%,0,0));
@@ -659,7 +655,7 @@ $part3: 7%;
 $part4: 8%;
 $part5: 9%;
 $part-left: -3%;
-$part-right: 2%;
+$part-right: 1%;
 $part-time: 1s;
 
 .page .part1{
@@ -766,19 +762,19 @@ $part-time: 1s;
 }
 
 .page.moved .part1, .page.moving .part1{
-  @include animation(moving1 $part-time ease-out 0s forwards);
+  @include animation(moving1 $part-time $ease-in-out-cubic 0s forwards);
 }
 .page.moved .part2, .page.moving .part2{
-  @include animation(moving2 $part-time ease-out 0.1s forwards);
+  @include animation(moving2 $part-time $ease-in-out-cubic 0.1s forwards);
 }
 .page.moved .part3, .page.moving .part3{
-  @include animation(moving3 $part-time ease-out 0.2s forwards);
+  @include animation(moving3 $part-time $ease-in-out-cubic 0.2s forwards);
 }
 .page.moved .part4, .page.moving .part4{
-  @include animation(moving4 $part-time ease-out 0.3s forwards);
+  @include animation(moving4 $part-time $ease-in-out-cubic 0.3s forwards);
 }
 .page.moved .part5, .page.moving .part5{
-  @include animation(moving5 $part-time ease-out 0.4s forwards);
+  @include animation(moving5 $part-time $ease-in-out-cubic 0.4s forwards);
 }
 
 /*secskill*/
@@ -906,19 +902,17 @@ $part-time: 1s;
   background-color: #FFF;
   z-index: 12;
   text-align: center;
-  -webkit-transform: translateY(-100%);
-  transform: translateY(-100%);
+  @include transform(translateY(-100%));
 }
 .top-bar-con{
   position: relative;
   top: 50%;
-  -webkit-transform: translateY(-50%) scale(0.1);
-  transform: translateY(-50%) scale(0.1);
+  @include transform(translateY(-50%) scale(0.1));
   opacity: 0;
 }
 .top-bar span{
   display: inline-block;
-  margin-right: 20px;
+  margin-right: 40px;
   position: relative;
   width: 83px;
   height: 83px;
@@ -969,6 +963,8 @@ $part-time: 1s;
 .top-bar span:last-child{
   margin-right: 0;
 }
+
+$movingBg: #F34A1E;
 .top-bar .bg, .top-bar .moving-bg{
   position: absolute;
   left: 0;
@@ -979,13 +975,24 @@ $part-time: 1s;
   border-radius: 50%;
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
+  // width: 100px;
 }
 
 .top-bar .moving-bg{
   margin: 0 auto;
-  background-color: #F34A1E;
+  background-color: $movingBg;
   left: 50%;
   margin-left: -42px;
+}
+.top-bar .moving-bg em{
+  position: absolute;
+  top: 0;
+  width: 83px;
+  height: 83px;
+  border-radius: 50%;
+  display: block;
+  background-color: $movingBg;
+  // display: none;
 }
 
 .search-page .cancel{
