@@ -535,6 +535,7 @@ $moving-graycolor: #DBDBDB;
     position: fixed;
     left: 0;
     bottom: 0;
+    z-index: 20;
 }
 .wrapper{
   position: absolute;
@@ -590,39 +591,61 @@ $moving-graycolor: #DBDBDB;
     transition: all 0.6s;
     position: relative;
 }
-.page-con.init-moving{
+.page.p0.init-moving{
   -webkit-animation: init-moving 1s ease-in 0s forwards;
   animation: init-moving 1s ease-in 0s forwards;
+  z-index: 20;
+  left: -100%;
 }
 .page{
     position: absolute;
     left: 0;
     top: 0;
-    right: 0;
+    width: 100%;
     margin-top: 15%;
     margin-bottom: 11%;
     background-color: #F6F4F6;
     overflow: hidden;
+    left: 100%;
+    @include transition(transform 0.6s ease-in-out);
 }
-.page.p0{
-    -webkit-transform: translate3d(-100%,0,0);
-    transform: translate3d(-100%,0,0);
+.page.moved, .page.moving{
+  @include transform(translate3d(-100%,0,0));
+  z-index: 10;
 }
-.page.p2{
-    -webkit-transform: translate3d(100%,0,0);
-    transform: translate3d(100%,0,0);
+.page.moveback{
+  @include transform(translate3d(0,0,0));
+  z-index: 12;
 }
-.page.p3{
-    -webkit-transform: translate3d(200%,0,0);
-    transform: translate3d(200%,0,0);
+.page.moving{
+  z-index: 15;
 }
-.page.p4{
-    -webkit-transform: translate3d(300%,0,0);
-    transform: translate3d(300%,0,0);
+.page.left{
+  // @include transform(translate3d(-100%,0,0));
+  left: -100%;
 }
+.page.left.moving, .page.left.moved{
+  @include transform(translate3d(100%,0,0));
+}
+// .page.p0{
+//     -webkit-transform: translate3d(-100%,0,0);
+//     transform: translate3d(-100%,0,0);
+// }
+// .page.p2{
+//     -webkit-transform: translate3d(100%,0,0);
+//     transform: translate3d(100%,0,0);
+// }
+// .page.p3{
+//     -webkit-transform: translate3d(200%,0,0);
+//     transform: translate3d(200%,0,0);
+// }
+// .page.p4{
+//     -webkit-transform: translate3d(300%,0,0);
+//     transform: translate3d(300%,0,0);
+// }
 .page.p5{
-    -webkit-transform: translate3d(400%,0,0);
-    transform: translate3d(400%,0,0);
+//     -webkit-transform: translate3d(400%,0,0);
+//     transform: translate3d(400%,0,0);
     overflow-y: auto;
 }
 .page.p5 img{
@@ -654,8 +677,9 @@ $part-time: 1s;
 .page .part5{
   @include transform(translate3d($part5,0,0));
 }
-.page.moved .part{
+.page.movestop.p1 .part{
   @include transform(translate3d(0px,0,0));
+  @include animation(none);
 }
 /*moving*/
 @include keyframes(init-moving) {
@@ -741,19 +765,19 @@ $part-time: 1s;
   }
 }
 
-.page.moving .part1{
+.page.moved .part1, .page.moving .part1{
   @include animation(moving1 $part-time ease-out 0s forwards);
 }
-.page.moving .part2{
+.page.moved .part2, .page.moving .part2{
   @include animation(moving2 $part-time ease-out 0.1s forwards);
 }
-.page.moving .part3{
+.page.moved .part3, .page.moving .part3{
   @include animation(moving3 $part-time ease-out 0.2s forwards);
 }
-.page.moving .part4{
+.page.moved .part4, .page.moving .part4{
   @include animation(moving4 $part-time ease-out 0.3s forwards);
 }
-.page.moving .part5{
+.page.moved .part5, .page.moving .part5{
   @include animation(moving5 $part-time ease-out 0.4s forwards);
 }
 
