@@ -222,9 +222,9 @@ $(function(){
                 var index = preIndex;
                 var bgOffset = 0;
                 var bgDir = delta.x<0 ? 'right' : 'left';
-                var bgMaxWidth = 120;
+                var bgMaxWidth = 115;
                 var movingbgWidth = me.movingbgWidth;
-                var limitOffset = 123;
+                var limitOffset = 100;
                 var nodePos = $('#J_topBar span').eq(preIndex).position().left
                 var pos = delta.x + me.touchStart.x - nodePos;
                 if(me.prePullDelta && me.prePullDelta.x<delta.x){
